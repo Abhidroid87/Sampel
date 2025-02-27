@@ -1,8 +1,8 @@
 {
-  "name": "Sampel-backend",
+  "name": "sampel-backend",
   "version": "1.0.0",
   "license": "MIT",
-  "author": "Sampel",
+  "author": "sampel",
   "scripts": {
     "start": "npm run db:push && node dist/app.js",
     "build": "tsc",

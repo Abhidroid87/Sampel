@@ -42,16 +42,16 @@ jobs:
           docker buildx create --use
           if [[ "${{ matrix.service }}" == "backend" ]]; then \
             DOCKERFILE=backend.dockerfile; \
-            IMAGE_NAME=Sampel-backend; \
+            IMAGE_NAME=sampel-backend; \
           else \
             DOCKERFILE=app.dockerfile; \
-            IMAGE_NAME=Sampel-frontend; \
+            IMAGE_NAME=sampel-frontend; \
           fi
           docker buildx build --platform linux/amd64,linux/arm64 \
-            --cache-from=type=registry,ref=Abhishek/${IMAGE_NAME}:main \
+            --cache-from=type=registry,ref=sampel/${IMAGE_NAME}:main \
             --cache-to=type=inline \
             -f $DOCKERFILE \
-            -t Abhishek/${IMAGE_NAME}:main \
+            -t sampel/${IMAGE_NAME}:main \
             --push .
 
       - name: Build and push release Docker image for ${{ matrix.service }}
@@ -60,14 +60,14 @@ jobs:
           docker buildx create --use
           if [[ "${{ matrix.service }}" == "backend" ]]; then \
             DOCKERFILE=backend.dockerfile; \
-            IMAGE_NAME=Sampel-backend; \
+            IMAGE_NAME=sampel-backend; \
           else \
             DOCKERFILE=app.dockerfile; \
-            IMAGE_NAME=Sampel-frontend; \
+            IMAGE_NAME=sampel-frontend; \
           fi
           docker buildx build --platform linux/amd64,linux/arm64 \
-            --cache-from=type=registry,ref=Abhishek/${IMAGE_NAME}:${{ env.RELEASE_VERSION }} \
+            --cache-from=type=registry,ref=sampel/${IMAGE_NAME}:${{ env.RELEASE_VERSION }} \
             --cache-to=type=inline \
             -f $DOCKERFILE \
-            -t Abhishek/${IMAGE_NAME}:${{ env.RELEASE_VERSION }} \
+            -t sampel/${IMAGE_NAME}:${{ env.RELEASE_VERSION }} \
             --push .

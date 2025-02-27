@@ -5,6 +5,6 @@ export default defineConfig({
   schema: './src/db/schema.ts',
   out: './drizzle',
   dbCredentials: {
-    url: '/home/Sampel/data/db.sqlite', // Use absolute path inside Docker
+    url: '/home/sampel/data/db.sqlite', // Use absolute path inside Docker
   },
 });

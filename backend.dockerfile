@@ -1,15 +1,15 @@
 FROM node:18-slim
 
-WORKDIR /home/perplexica
+WORKDIR /home/sampel
 
-COPY src /home/Sampel/src
-COPY tsconfig.json /home/Sampel/
-COPY drizzle.config.ts /home/Sampel/
-COPY package.json /home/Sampel/
-COPY yarn.lock /home/Sampel/
+COPY src /home/sampel/src
+COPY tsconfig.json /home/sampel/
+COPY drizzle.config.ts /home/sampel/
+COPY package.json /home/sampel/
+COPY yarn.lock /home/sampel/
 
-RUN mkdir /home/Sampel/data
-RUN mkdir /home/Sampel/uploads
+RUN mkdir /home/sampel/data
+RUN mkdir /home/sampel/uploads
 
 RUN yarn install --frozen-lockfile --network-timeout 600000
 RUN yarn build
