@@ -1,4 +1,3 @@
-
 services:
   searxng:
     image: docker.io/searxng/searxng:latest
@@ -18,28 +17,39 @@ services:
     environment:
       - SEARXNG_API_URL=http://searxng:8080
       - DATABASE_URL=file:/home/sampel/data/db.sqlite  # Ensure this path is correct
-    networks:
-      - sampel-network
     depends_on:
       - searxng
+    ports:
+      - 3001:3001
+    volumes:
+      - backend-dbstore:/home/sampel/data
+      - uploads:/home/sampel/uploads
+      - ./config.toml:/home/sampel/config.toml
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - sampel-network
     restart: unless-stopped
 
   sampel-frontend:
     build:
-      context: .
+      context: .  # Root directory
       dockerfile: app.dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=http://sampel-backend:3001/api
+        - NEXT_PUBLIC_WS_URL=ws://sampel-backend:3001
     image: sampel/sampel-frontend:main
-    environment:
-      - NEXT_PUBLIC_WS_URL=ws://sampel-backend:3001
-      - NEXT_PUBLIC_API_URL=http://sampel-backend:3001/api
+    depends_on:
+      - sampel-backend
     ports:
       - 3000:3000
     networks:
       - sampel-network
-    depends_on:
-      - sampel-backend
     restart: unless-stopped
 
 networks:
   sampel-network:
-    driver: bridge
+
+volumes:
+  backend-dbstore:
+  uploads:
