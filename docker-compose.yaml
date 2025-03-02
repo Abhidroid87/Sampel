@@ -1,5 +1,6 @@
 services:
   searxng:
+    container_name: searxng
     image: docker.io/searxng/searxng:latest
     volumes:
       - ./searxng:/etc/searxng:rw
@@ -10,6 +11,7 @@ services:
     restart: unless-stopped
 
   sampel-backend:
+    container_name: sampel-backend
     build:
       context: .  # Root directory since backend is inside src/
       dockerfile: backend.dockerfile
@@ -32,6 +34,7 @@ services:
     restart: unless-stopped
 
   sampel-frontend:
+    container_name: sampel-frontend
     build:
       context: .  # Root directory
       dockerfile: app.dockerfile
